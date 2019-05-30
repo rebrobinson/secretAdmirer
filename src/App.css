@@ -1,0 +1,105 @@
+/* light pink: #ffddee */
+
+.App {
+  text-align: center;
+}
+
+body {
+  background-color: lavender;
+  color: hotpink;
+  font-size: 20px;
+}
+
+h1 {
+  padding: 25px 0;
+  color: tomato;
+  font-family: 'Ranga', cursive;
+  font-weight: 700;
+  font-size: 100px;
+  margin: 0;
+}
+
+.formWrapper {
+  display: flex;
+  background: whitesmoke;
+  width: 900px;
+  height: 300px;
+  margin: 0 auto;
+  padding: 50px;
+  box-shadow: 10px 10px 0px hotpink;
+}
+
+.description {
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 30px;
+  line-height: 1.5;
+  border-right: 2px solid hotpink;
+  margin: 0;
+}
+
+form {
+  background: whitesmoke;
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 25px;
+}
+
+input {
+  background: #ffddee;
+  color: orangered;
+  border: none;
+  margin-bottom: 25px;
+  font-size: 16px;
+  width: 500px;
+}
+
+input[name="personsName"] {
+  padding: 10px;
+}
+
+input[name="userMessage"] {
+  padding: 10px 10px 100px 10px;
+}
+
+.send {
+  width: 100px;
+  margin: 0 auto;
+  background: tomato;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  color: whitesmoke;
+}
+
+.send:hover {
+  background: #ffddee;
+  color: tomato;
+}
+
+ul {
+  list-style: none;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+li {
+  background: whitesmoke;
+  margin: 20px;
+  width: calc(33% - 40px);
+  height: 100%;
+}
+
+.recipient,
+.admirer {
+  font-family: 'Ranga', cursive;
+  font-weight: 400;
+}
+
+.likes {
+
+}
