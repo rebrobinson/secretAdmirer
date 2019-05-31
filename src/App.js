@@ -21,9 +21,7 @@ class App extends Component {
     dbRef.on('value', (response) => {
 
       const newState = [];
-
       const data = response.val();
-
 
       for (let id in data) {
         newState.push({
@@ -33,7 +31,6 @@ class App extends Component {
           likes: data[id].likes
         })
       }
-
 
       this.setState({
         letters: newState,
@@ -47,7 +44,6 @@ class App extends Component {
       [event.target.name]: event.target.value,
     });
   }
-  
 
   handleClick = (event) => {
     event.preventDefault();
@@ -61,7 +57,7 @@ class App extends Component {
     });
 
     //to make the user input empty again
-    this.setState({
+    this.setState({ 
       userMessage: '',
       personsName: ''
     });
@@ -69,25 +65,35 @@ class App extends Component {
 
   handleLikeClick = (uniqueKey) => {
     const newState = Object.assign({}, this.state)
-    // newState.likeNumber = newState.likeNumber + 1
-    // this.setState(newState)
-    console.log(newState.letters)
-    console.log(uniqueKey)
+    
+    // console.log(newState.letters)
+    // console.log(uniqueKey)
 
     const letters = newState.letters;
+
     const newLetters = letters.map( (letter) => {
       if (letter.uniqueKey === uniqueKey) {
         letter.likes = letter.likes + 1;
+        const dbRef = firebase.database().ref(uniqueKey);
+        dbRef.update({
+          likes: letter.likes,
+      })
       }
       return letter;
     })
+
     console.log(newLetters);
     this.setState({
       letters: newLetters
     })
+
+
+
     // get a database reference
-    // look up the record on that reference that matches the unique key avaibale in the function
+    // look up the record on that reference that matches the unique key available in the function
     // push the state to the database 
+
+
 
     // const dbRef = firebase.database().ref();
 
@@ -101,16 +107,24 @@ class App extends Component {
     return (
       <div className="App">
         <h1>love, your secret admirer</h1>
-        <div class="formWrapper">
-          <p class="description">Have a lil crush on someone but not ready to let them know? If you can't keep your feelings to yourself any longer but you're too shy to expose yourself, share it anonymously! And don't worry– your secret is safe with me. ;) </p>
+        <div className="formWrapper">
+          <p className="description">Have a lil crush on someone but not ready to let them know? If you can't keep your feelings to yourself any longer but you're too shy to expose yourself, share it anonymously! And don't worry– your secret is safe with me. ;) </p>
           <form>
             <Name handleChange={this.handleChange} />
             <Message
               handleChange={this.handleChange}
               handleClick={this.handleClick}
             />
-            <button class="send" onClick={this.handleClick}>Send</button>
+            <button className="send" onClick={this.handleClick}>Send</button>
           </form>
+        </div>
+
+        <div className="mailbox">
+          <h2>
+            <i className="fas fa-envelope"></i>
+            You've got mail:
+            <i className="fas fa-envelope-open-text"></i>
+          </h2>
         </div>
         
         
@@ -118,10 +132,11 @@ class App extends Component {
           {this.state.letters.map( (message) => {
             return(
               <li key={message.uniqueKey}>
-                <p class="recipient">Dear {message.name}</p>
-                <p class="theMessage">{message.content}</p>
-                <p class="admirer">love, your secret admirer</p>
-                <LikeButton uniqueKey={message.uniqueKey} handleLikeClick={this.handleLikeClick} likes={message.likes}/>
+                <p className="recipient">Dear {message.name}</p>
+                <p className="theMessage">{message.content}</p>
+                <p className="admirer">love, your secret admirer</p>
+                <LikeButton uniqueKey={message.uniqueKey} handleLikeClick={this.handleLikeClick} likes={message.likes} />
+                {/* <p>{message.likes}</p> */}
               </li>
             )
           })}

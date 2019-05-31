@@ -13,10 +13,17 @@ class LikeButton extends Component {
 
     render() {
         return (
-            <button class="likes" onClick={() => {this.props.handleLikeClick(this.props.uniqueKey)}}>{this.props.likes}</button>
+            <button className="likes" onClick={() => { this.props.handleLikeClick(this.props.uniqueKey) }}>
+            {this.props.likes}
+                < i className="fas fa-heart" ></i >
+            </button>
         )
     }
 }
 
 
 export default LikeButton
+
+
+
+    
