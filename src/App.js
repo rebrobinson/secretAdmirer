@@ -29,7 +29,8 @@ class App extends Component {
         newState.push({
           uniqueKey: id,
           name: data[id].name,
-          content: data[id].message
+          content: data[id].message,
+          likes: data[id].likes
         })
       }
 
@@ -52,10 +53,11 @@ class App extends Component {
     event.preventDefault();
 
     const dbRef = firebase.database().ref();
-
+  
     dbRef.push({
       message: this.state.userMessage,
-      name: this.state.personsName
+      name: this.state.personsName,
+      likes: 0,
     });
 
     //to make the user input empty again
@@ -63,6 +65,35 @@ class App extends Component {
       userMessage: '',
       personsName: ''
     });
+  }
+
+  handleLikeClick = (uniqueKey) => {
+    const newState = Object.assign({}, this.state)
+    // newState.likeNumber = newState.likeNumber + 1
+    // this.setState(newState)
+    console.log(newState.letters)
+    console.log(uniqueKey)
+
+    const letters = newState.letters;
+    const newLetters = letters.map( (letter) => {
+      if (letter.uniqueKey === uniqueKey) {
+        letter.likes = letter.likes + 1;
+      }
+      return letter;
+    })
+    console.log(newLetters);
+    this.setState({
+      letters: newLetters
+    })
+    // get a database reference
+    // look up the record on that reference that matches the unique key avaibale in the function
+    // push the state to the database 
+
+    // const dbRef = firebase.database().ref();
+
+    // dbRef.push({
+    //   letters: 
+    // });
   }
   
 
@@ -90,7 +121,7 @@ class App extends Component {
                 <p class="recipient">Dear {message.name}</p>
                 <p class="theMessage">{message.content}</p>
                 <p class="admirer">love, your secret admirer</p>
-                <LikeButton />
+                <LikeButton uniqueKey={message.uniqueKey} handleLikeClick={this.handleLikeClick} likes={message.likes}/>
               </li>
             )
           })}
