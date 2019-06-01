@@ -110,7 +110,7 @@ class App extends Component {
           </h2>
         </div>
         
-        <ul>
+        <ul className="clearfix">
           {this.state.letters.map( (message) => {
             return(
               <li key={message.uniqueKey}>
