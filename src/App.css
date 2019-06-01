@@ -34,7 +34,7 @@ h1 {
   display: flex;
   background: whitesmoke;
   width: 950px;
-  height: 400px;
+  height: 100%;
   margin: 0 auto;
   padding: 50px;
   box-shadow: 10px 10px 0px hotpink;
@@ -92,9 +92,15 @@ textarea {
   font-family: 'Poppins', sans-serif;
 }
 
-.send:hover {
+.send:hover,
+.send:active,
+.send:focus {
   background: #ffddee;
   color: tomato;
+}
+
+.send:active {
+  border: 1px solid tomato;
 }
 
 .mailbox {
@@ -109,30 +115,6 @@ h2 {
 i {
   margin: 0 20px;
 }
-
-/* ul {
-  list-style: none;
-  width: 90%;
-  display: flex;
-  flex-wrap: wrap; 
-  flex-direction: column-reverse;
-  padding: 0;
-  margin: 0 auto;
-  margin-bottom: 100px;
-  justify-content: center;
-  align-items: center;
-
-} 
-
-li {
-  background: whitesmoke;
-  margin: 20px;
-  width: 50%;
-  height: 100%;
-  padding: 15px;
-  border: solid 1px hotpink;
-  display: inline-block;
-} */
 
 ul {
   list-style: none;
@@ -178,4 +160,93 @@ footer p {
   padding-bottom: 20px;
   letter-spacing: .5px;
   color: tomato;
+}
+
+
+/* MEDIA QUERIES */
+
+@media (max-width: 1000px) {
+  .formWrapper {
+    width: 650px;
+  }
+  input, 
+  textarea {
+    width: 300px;
+  }
+  ul {
+    max-width: 700px;
+    column-count: 2;
+  }
+}
+
+@media (max-width: 800px) {
+  h1 {
+    font-size: 70px;
+  }
+  .formWrapper {
+    padding: 30px;
+  }
+  li {
+    width: 275px;
+  }
+}
+
+@media (max-width: 700px) {
+  .formWrapper {
+    flex-direction: column;
+    width: 450px;
+  }
+  .description {
+    text-align: center;
+    border: none;
+    padding: 0;
+  }
+  form {
+    width: 400px;
+    align-items: center;
+    padding-top: 30px;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    line-height: 70px;
+    padding: 50px 0;
+  }
+  ul {
+    column-count: 1;
+  }
+  li {
+    width: 300px;
+  }
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 60px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .formWrapper {
+    width: 275px;
+    box-shadow: none;
+    padding: 0;
+  }
+  .description {
+    font-size: 18px;
+    padding: 15px;
+  }
+  form {
+    width: 250px;
+    padding-top: 15px;
+  }
+  input, 
+  textarea {
+    width: 250px;
+    font-size: 14px;
+  }
+  .send {
+    margin-bottom: 15px;
+  }
 }
