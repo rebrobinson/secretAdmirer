@@ -39,7 +39,6 @@ class App extends Component {
   };
 
   handleChange = (event) => {
-    console.log('change')
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -65,9 +64,7 @@ class App extends Component {
 
   handleLikeClick = (uniqueKey) => {
     const newState = Object.assign({}, this.state)
-    
-    // console.log(newState.letters)
-    // console.log(uniqueKey)
+ 
 
     const letters = newState.letters;
 
@@ -86,20 +83,6 @@ class App extends Component {
     this.setState({
       letters: newLetters
     })
-
-
-
-    // get a database reference
-    // look up the record on that reference that matches the unique key available in the function
-    // push the state to the database 
-
-
-
-    // const dbRef = firebase.database().ref();
-
-    // dbRef.push({
-    //   letters: 
-    // });
   }
   
 
@@ -127,7 +110,6 @@ class App extends Component {
           </h2>
         </div>
         
-        
         <ul>
           {this.state.letters.map( (message) => {
             return(
@@ -141,6 +123,9 @@ class App extends Component {
             )
           })}
         </ul>
+        <footer>
+          <p>made by becky robinson | beckyiscoding.com</p>
+        </footer>
       </div>
     );
   }
