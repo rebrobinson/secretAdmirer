@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
 import Name from './Name.js';
-import Message from './Message.js';
 import LikeButton from './LikeButton.js';
 import './App.css';
 
@@ -39,6 +38,7 @@ class App extends Component {
   };
 
   handleChange = (event) => {
+    
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -47,13 +47,17 @@ class App extends Component {
   handleClick = (event) => {
     event.preventDefault();
 
-    const dbRef = firebase.database().ref();
-  
-    dbRef.push({
-      message: this.state.userMessage,
-      name: this.state.personsName,
-      likes: 0,
-    });
+    if (event.target.value === 0){
+        alert('Please enter a name and a message!')
+    } else {
+      const dbRef = firebase.database().ref();
+
+      dbRef.push({
+        message: this.state.userMessage,
+        name: this.state.personsName,
+        likes: 0,
+      });
+    }
 
     //to make the user input empty again
     this.setState({ 
@@ -92,13 +96,15 @@ class App extends Component {
         <h1>love, your secret admirer</h1>
         <div className="formWrapper">
           <p className="description">Have a lil crush on someone but not ready to let them know? If you can't keep your feelings to yourself any longer but you're too shy to expose yourself, share it anonymously! And don't worry– your secret is safe with me. ;) </p>
-          <form>
-            <Name handleChange={this.handleChange} />
-            <Message
-              handleChange={this.handleChange}
-              handleClick={this.handleClick}
-            />
-            <button className="send" onClick={this.handleClick}>Send</button>
+          <form onSubmit={this.handleClick} class='form'>
+            <Name handleChange={this.handleChange} personsName={this.state.personsName}/>
+            <textarea
+              onChange={this.handleChange}
+              name="userMessage"
+              placeholder="what do you want to tell them?"
+              value={this.state.userMessage}>
+            </textarea>
+            <button className="send">Send</button>
           </form>
         </div>
 
@@ -118,7 +124,6 @@ class App extends Component {
                 <p className="theMessage">{message.content}</p>
                 <p className="admirer">love, your secret admirer</p>
                 <LikeButton uniqueKey={message.uniqueKey} handleLikeClick={this.handleLikeClick} likes={message.likes} />
-                {/* <p>{message.likes}</p> */}
               </li>
             )
           })}
