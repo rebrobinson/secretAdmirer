@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import firebase from './firebase.js';
 import Name from './Name.js';
 import LikeButton from './LikeButton.js';
+import { Link, animateScroll as scroll } from "react-scroll";
 import './App.css';
 
 class App extends Component {
@@ -23,7 +24,7 @@ class App extends Component {
       const data = response.val();
 
       for (let id in data) {
-        newState.push({
+        newState.unshift({
           uniqueKey: id,
           name: data[id].name,
           content: data[id].message,
@@ -47,9 +48,9 @@ class App extends Component {
   handleClick = (event) => {
     event.preventDefault();
 
-    if (event.target.value === 0){
-        alert('Please enter a name and a message!')
-    } else {
+    // if (event.target.value === 0){
+    //     alert('Please enter a name and a message!')
+    // } else {
       const dbRef = firebase.database().ref();
 
       dbRef.push({
@@ -57,7 +58,7 @@ class App extends Component {
         name: this.state.personsName,
         likes: 0,
       });
-    }
+    // }
 
     //to make the user input empty again
     this.setState({ 
@@ -103,12 +104,21 @@ class App extends Component {
               name="userMessage"
               placeholder="what do you want to tell them?"
               value={this.state.userMessage}>
+              required
             </textarea>
-            <button className="send">Send</button>
+            {/* <button className="send">Send</button> */}
+            <Link 
+              activeClass="active"
+              to="mailbox"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+            ><button className="send">Send</button></Link>
           </form>
         </div>
 
-        <div className="mailbox">
+        <div className="mailbox" id="mailbox">
           <h2>
             <i className="fas fa-envelope"></i>
             You've got mail:
