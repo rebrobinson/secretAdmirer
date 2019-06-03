@@ -4,6 +4,7 @@ class Name extends Component {
     render() {
         return (
             <input
+                // passing the props from the state that this component needs to function
                 onChange={this.props.handleChange}
                 name="personsName"
                 type="text"
