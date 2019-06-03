@@ -9,7 +9,6 @@ class Name extends Component {
                 type="text"
                 placeholder="enter the name of the recipient"
                 value={this.props.personsName}
-                required
             />
         )
     }

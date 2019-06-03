@@ -10,11 +10,10 @@ class LikeButton extends Component {
         }
     }
 
-
     render() {
         return (
-            <button className="likes" onClick={() => { this.props.handleLikeClick(this.props.uniqueKey) }}>
-            {this.props.likes}
+            <button className="likes" onClick={() => { this.props.handleLikeClick(this.props.uniqueKeything) }}>
+            {this.props.likesthing}
                 < i className="fas fa-heart" ></i >
             </button>
         )

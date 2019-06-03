@@ -47,18 +47,33 @@ class App extends Component {
 
   handleClick = (event) => {
     event.preventDefault();
+    //history.push('#mailbox');
+    document.getElementById('mailbox').scrollIntoView({
+      block: 'start',
+      behaviour: 'smooth'
+    })
+    
+    const dbRef = firebase.database().ref();
 
-    // if (event.target.value === 0){
-    //     alert('Please enter a name and a message!')
-    // } else {
-      const dbRef = firebase.database().ref();
+    dbRef.push({
+      message: this.state.userMessage,
+      name: this.state.personsName,
+      likes: 0,
+    });
+    
+    if (!this.state.personsName && !this.state.userMessage) {
+      return this.setState({ error: "Please enter a name and message"})
+    }
 
-      dbRef.push({
-        message: this.state.userMessage,
-        name: this.state.personsName,
-        likes: 0,
-      });
-    // }
+    if (!this.state.personsName) {
+      return this.setState({ error: "Please enter a name" });
+    }
+
+    if(!this.state.userMessage) {
+      return this.setState({ error: "Please enter a message"});
+    }
+
+    
 
     //to make the user input empty again
     this.setState({ 
@@ -89,7 +104,6 @@ class App extends Component {
       letters: newLetters
     })
   }
-  
 
   render(){
     return (
@@ -98,23 +112,15 @@ class App extends Component {
         <div className="formWrapper">
           <p className="description">Have a lil crush on someone but not ready to let them know? If you can't keep your feelings to yourself any longer but you're too shy to expose yourself, share it anonymously! And don't worry– your secret is safe with me. ;) </p>
           <form onSubmit={this.handleClick} class='form'>
+          {this.state.error && <p>{this.state.error}</p>}
             <Name handleChange={this.handleChange} personsName={this.state.personsName}/>
             <textarea
               onChange={this.handleChange}
               name="userMessage"
               placeholder="what do you want to tell them?"
               value={this.state.userMessage}>
-              required
             </textarea>
-            {/* <button className="send">Send</button> */}
-            <Link 
-              activeClass="active"
-              to="mailbox"
-              spy={true}
-              smooth={true}
-              offset={-70}
-              duration={500}
-            ><button className="send">Send</button></Link>
+            <button className="send">Send</button>
           </form>
         </div>
 
@@ -127,13 +133,13 @@ class App extends Component {
         </div>
         
         <ul className="clearfix">
-          {this.state.letters.map( (message) => {
+          {this.state.letters.map( (letter) => {
             return(
-              <li key={message.uniqueKey}>
-                <p className="recipient">Dear {message.name}</p>
-                <p className="theMessage">{message.content}</p>
+              <li key={letter.uniqueKey}>
+                <p className="recipient">Dear {letter.name}</p>
+                <p className="theMessage">{letter.content}</p>
                 <p className="admirer">love, your secret admirer</p>
-                <LikeButton uniqueKey={message.uniqueKey} handleLikeClick={this.handleLikeClick} likes={message.likes} />
+                <LikeButton uniqueKeything={letter.uniqueKey} handleLikeClick={this.handleLikeClick} likesthing={letter.likes} />
               </li>
             )
           })}
