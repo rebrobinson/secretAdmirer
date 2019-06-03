@@ -74,12 +74,14 @@ textarea {
 
 input[name="personsName"] {
   padding: 10px;
+  border-radius: 0;
 }
 
 textarea {
   padding: 10px;
   height: 200px;
   resize: none;
+  border-radius: 0;
 }
 
 .send {
