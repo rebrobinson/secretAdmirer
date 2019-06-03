@@ -55,24 +55,11 @@ class App extends Component {
   //this function does something on the click of the button
   handleClick = (event) => {
     event.preventDefault();
-
-    // document.getElementById('mailbox').scrollIntoView({
-    //   block: 'start',
-    //   behaviour: 'smooth'
-    // })
-    
-    // const dbRef = firebase.database().ref();
-
-    // dbRef.push({
-    //   message: this.state.userMessage,
-    //   name: this.state.personsName,
-    //   likes: 0,
-    // });
     
     //error handling
-    //if the name input and the message input do not have a value, then return an error message
-    if (!this.state.personsName && !this.state.userMessage) {
-      return this.setState({ error: 'Please enter a name and message'})
+    //if the name input and the message input do not have a value, OR if there is no name but there is a message, OR there is a name but no message, then return an error 
+    if ((!this.state.personsName && !this.state.userMessage) || (!this.state.personsName && this.state.userMessage) || (this.state.personsName && !this.state.userMessage)) {
+      return this.setState({ error: 'You must fill out all fields!'})
     } else {
       //get the mailbox div and scroll it into view
       document.getElementById('mailbox').scrollIntoView({
@@ -80,48 +67,10 @@ class App extends Component {
         block: 'start',
         behaviour: 'smooth'
       })
-
       //reference the database, store it as a variable
       const dbRef = firebase.database().ref();
-
       //take the userMessage and personsName from whatever they are in the state and push those values to firebase
       //this is where we declare 'likes' and give it a starting value of 0
-      dbRef.push({
-        message: this.state.userMessage,
-        name: this.state.personsName,
-        likes: 0,
-      });
-    }
-
-    //if the name input is empty, return an error message
-    if (!this.state.personsName) {
-      return this.setState({ error: 'Please enter a name' });
-    } else {
-      document.getElementById('mailbox').scrollIntoView({
-        block: 'start',
-        behaviour: 'smooth'
-      })
-
-      const dbRef = firebase.database().ref();
-
-      dbRef.push({
-        message: this.state.userMessage,
-        name: this.state.personsName,
-        likes: 0,
-      });
-    }
-
-    //if the message input is empty, return an error message
-    if(!this.state.userMessage) {
-      return this.setState({ error: 'Please enter a message'});
-    } else {
-      document.getElementById('mailbox').scrollIntoView({
-        block: 'start',
-        behaviour: 'smooth'
-      })
-
-      const dbRef = firebase.database().ref();
-
       dbRef.push({
         message: this.state.userMessage,
         name: this.state.personsName,
